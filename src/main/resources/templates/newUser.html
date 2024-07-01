@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create new user</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            padding: 20px;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type=text],
+        input[type=password],
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: right;
+        }
+
+        input[type=submit]:hover {
+            background-color: #4cae4c;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8em;
+        }
+
+        .link-button {
+            display: inline-block;
+            background-color: #f0f0f0;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .link-button:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+<form th:method="POST" th:action="@{/admin/addUser}" th:object="${user}">
+    <label for="name">Name</label>
+    <input type="text" th:field="*{name}" id="name">
+    <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Error</div>
+    <label for="lastName">LastName</label>
+    <input type="text" th:field="*{lastName}" id="lastName">
+    <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Error</div>
+    <label for="username">Username</label>
+    <input type="text" th:field="*{username}" id="username">
+    <div class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</div>
+    <label for="email">Email</label>
+    <input type="text" th:field="*{email}" id="email">
+    <div class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</div>
+    <label for="password">Password</label>
+    <input type="password" th:field="*{password}" id="password">
+    <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
+    <label>
+        <select th:name="roles" th:value="*{roles}">
+            <option th:each="role:${roles}" th:value="${role.id}" th:text="${role.role}" selected></option>
+        </select>
+    </label>
+    <input type="submit" value="Create user">
+</form>
+<br>
+<br>
+<a href="/admin" class="link-button">
+    Back to the administrator page
+</a>
+<br>
+<br>
+<a href="/logout" class="link-button">
+    Logout
+</a>
+</body>
+</html>
